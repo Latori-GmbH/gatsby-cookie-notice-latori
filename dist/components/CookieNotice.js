@@ -127,7 +127,6 @@ const CookieNotice = _ref => {
 
   (0, _react.useEffect)(() => {
     prop.cookiesList.map(c => {
-      console.log(c);
       if (!cookieExist(c.name)) {
         return setDisplayCookieNotice(true);
       }
