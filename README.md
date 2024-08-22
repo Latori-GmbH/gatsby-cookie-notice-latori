@@ -79,6 +79,33 @@ By default gatsby-cookie-notice work with Bootstrap 5, but you can change classe
 `title` Title of the cookie, displayed on the customize section.
 `text` Description of the cookie, displayed with the title on the customize section.
 
+## EventCallback
+On cookie update a custom event is sent. You can use this to update your DOM Accordingly.
+
+Source:
+```
+const event = new Event('cookies:updated');
+document.documentElement.dispatchEvent(event);
+```
+
+Usage:
+```
+  React.useEffect(() => {
+    const checkCookie = () => {
+      setCookieIsSet(getCookie("gatsby-gdpr-klaviyo") === "true");
+    };
+
+    // Listen for the custom "cookies:updated" event
+    document.documentElement.addEventListener("cookies:updated", checkCookie);
+
+    // Clean up the event listener on unmount
+    return () => {
+      document.documentElement.removeEventListener("cookies:updated", checkCookie);
+    };
+  }, []);
+```
+
+
 ## License 
 
 MIT
