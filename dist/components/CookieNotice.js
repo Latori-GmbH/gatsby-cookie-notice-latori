@@ -78,9 +78,14 @@ const CookieNotice = _ref => {
     (0, _gatsbyPluginGdprCookies.initializeAndTrack)(window.location);
     setDisplayCookieNotice(false);
 
-    console.log('cookies did change');
+    dispatchCookieEvent();
 
   };
+
+  const dispatchCookieEvent = () => {
+    const event = new Event('cookies:updated');
+    document.documentElement.dispatchEvent(event);
+  }
 
   const declineCookie = () => {
     prop.cookiesList.map(c => {
@@ -88,15 +93,10 @@ const CookieNotice = _ref => {
     });
     (0, _gatsbyPluginGdprCookies.initializeAndTrack)(window.location);
     setDisplayCookieNotice(false);
-
-    console.log('cookies did change');
-
-
+    dispatchCookieEvent();
   };
 
   const validatePreferences = e => {
-    console.log('Validating Preferences');
-
     e.preventDefault();
     prop.cookiesList.map(c => {
       if (document.getElementById(c.name).checked) document.cookie = c.name + "=true" + expires + "; path=/";else document.cookie = c.name + "=false" + expires + "; path=/";
@@ -106,8 +106,6 @@ const CookieNotice = _ref => {
   };
 
   const cookieExist = name => {
-    console.log('Checking if Cookie exists: ', name);
-
     var dc = document.cookie;
     var prefix = name + "=";
     var begin = dc.indexOf("; " + prefix);
