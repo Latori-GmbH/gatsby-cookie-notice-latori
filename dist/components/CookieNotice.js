@@ -103,6 +103,11 @@ const CookieNotice = _ref => {
       (0, _gatsbyPluginGdprCookies.initializeAndTrack)(window.location);
       setDisplayCookieNotice(false);
     });
+
+    setTimeout(() => {
+      dispatchCookieEvent();
+    }, 50);
+
   };
 
   const cookieExist = name => {
